@@ -3,7 +3,6 @@ package repositories;
 import beans.Avion;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import jakarta.enterprise.inject.Model;
-
 import java.util.List;
 
 @Model
@@ -17,5 +16,4 @@ public class AvionRepository implements PanacheRepositoryBase<Avion, Long> {
         findById(1L); //Rechercher un avion !
         persist(new Avion()); //Créer un avion !
     }
-
 }

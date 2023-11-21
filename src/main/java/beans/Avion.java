@@ -1,4 +1,5 @@
 package beans;
+
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -11,7 +12,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Table(name = "planes")
 public class Avion extends PanacheEntity {
-
     @Id
     @SequenceGenerator(name = "planes_sequence_in_java_code", sequenceName = "planes_sequence_in_database", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "planes_sequence_in_java_code")
@@ -28,5 +28,4 @@ public class Avion extends PanacheEntity {
 
     @Column(nullable = false)
     private Integer capacity;
-
 }
