@@ -20,23 +20,23 @@ public class Avion extends PanacheEntityBase {
     @Id
     @SequenceGenerator(name = "planes_sequence_in_java_code", sequenceName = "planes_sequence_in_database", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "planes_sequence_in_java_code")
-    private Long id;
+    private Long id; //L'id de l'avion !
 
     @NotBlank(message = "La compagnie ne peut pas être nulle !")
     @Column(nullable = false)
-    private String operator; //Compagnie de l'avion !
+    private String operator; //La compagnie de l'avion !
 
     @NotBlank(message = "Le modèle de l'avion ne peut pas être nul !")
     @Column(nullable = false)
-    private String model; //Modèle de l'avion !
+    private String model; //Le modèle de l'avion !
 
     @NotBlank(message = "L'immatriculation de l'avion ne peut pas être nulle !")
     @Size(max = 6, message = "L'immatriculation à un maximum de 6 caractères !")
     @Column(nullable = false, unique = true)
-    private String registration; //Immatriculation !
+    private String registration; //L'immatriculation de l'avion !
 
     @NotNull(message = "La capacité ne peut pas être nulle !")
     @Column(nullable = false)
     @Min(value = 6, message = "La capacité doit être au minimum de 6 !")
-    private Integer capacity; //Capacité de l'avion !
+    private Integer capacity; //La capacité de l'avion !
 }
