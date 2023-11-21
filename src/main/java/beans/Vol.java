@@ -7,8 +7,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.sql.Time;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 
 @Entity
 @Getter
@@ -18,12 +19,12 @@ import java.util.Date;
 public class Vol extends PanacheEntityBase {
 
     @Id
-    @SequenceGenerator(name = "vols_sequence_in_java_code", sequenceName = "vols_sequence_in_database", allocationSize = 1)
+    @SequenceGenerator(name = "flights_sequence_in_java_code", sequenceName = "flights_sequence_in_database", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vols_sequence_in_java_code")
     private Long id; //L'id du vol !
 
     @NotBlank(message = "Le numéro du vol ne peut pas être nul !")
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String number; //Le numéro du vol !
 
     @NotBlank(message = "L'origine du vol ne peut pas être nulle !")
@@ -36,21 +37,22 @@ public class Vol extends PanacheEntityBase {
 
     @NotBlank(message = "La date de départ du vol ne peut pas être nulle !")
     @Column(nullable = false)
-    private Date departure_date; //La date de départ du vol !
+    private LocalDate departure_date; //La date de départ du vol !
 
     @NotBlank(message = "L'heure de départ du vol ne peut pas être nulle !")
     @Column(nullable = false)
-    private Time departure_time; //L'heure de départ du vol !
+    private LocalTime departure_time; //L'heure de départ du vol !
 
     @NotBlank(message = "La date d'arrivée du vol ne peut pas être nulle !")
     @Column(nullable = false)
-    private Date arrival_date; //La date d'arrivée du vol !
+    private LocalDate arrival_date; //La date d'arrivée du vol !
 
     @NotBlank(message = "L'heure d'arrivée du vol ne peut pas être nulle !")
     @Column(nullable = false)
-    private Time arrival_time; //L'heure d'arrivée du vol !
+    private LocalTime arrival_time; //L'heure d'arrivée du vol !
 
+    @NotNull(message="L'id de l'avion du vol ne peut pas être nul !")
     @ManyToOne
-    @JoinColumn(name = "plane_id", nullable = false) // Nom de la colonne de jointure dans la table Vol
+    @JoinColumn(name = "plane_id", nullable = false)
     private Avion avion; //L'id de l'avion du vol !
 }
