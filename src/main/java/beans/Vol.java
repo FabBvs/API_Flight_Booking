@@ -17,7 +17,6 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @Table(name = "flights")
 public class Vol extends PanacheEntityBase {
-
     @Id
     @SequenceGenerator(name = "flights_sequence_in_java_code", sequenceName = "flights_sequence_in_database", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vols_sequence_in_java_code")
@@ -54,5 +53,5 @@ public class Vol extends PanacheEntityBase {
     @NotNull(message="L'id de l'avion du vol ne peut pas être nul !")
     @ManyToOne
     @JoinColumn(name = "plane_id", nullable = false)
-    private Avion avion; //L'id de l'avion du vol !
+    private Avion plane_id; //L'id de l'avion du vol !
 }
