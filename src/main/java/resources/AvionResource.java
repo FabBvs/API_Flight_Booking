@@ -27,7 +27,6 @@ public class AvionResource extends GenericResource {
     @GET
     public Response getPlanes(@QueryParam("operator")String operator) {
         List<Avion> list;
-        //var list = repository.listAll();
         if(StringUtils.isBlank(operator)) {
             list = repository.listAll();
         }else{

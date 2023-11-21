@@ -2,6 +2,8 @@ package beans;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,9 +22,11 @@ public class Vol extends PanacheEntityBase {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vols_sequence_in_java_code")
     private Long id;
 
+    @NotNull(message = "Le numéro du vol ne peut pas être nul !")
     @Column(nullable = false)
-    private String number;
+    private Integer number;
 
+    @NotBlank(message = "Le numéro du vol ne peut pas être nul !")
     @Column(nullable = false)
     private String origin;
 
