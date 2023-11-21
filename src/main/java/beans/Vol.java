@@ -1,6 +1,6 @@
 package beans;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +13,8 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @Table(name = "flights")
-public class Vol extends PanacheEntity {
+public class Vol extends PanacheEntityBase {
+
     @Id
     @SequenceGenerator(name = "vols_sequence_in_java_code", sequenceName = "vols_sequence_in_database", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vols_sequence_in_java_code")
