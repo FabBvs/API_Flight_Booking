@@ -16,7 +16,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Table(name = "planes")
 public class Avion extends PanacheEntityBase {
-
     @Id
     @SequenceGenerator(name = "planes_sequence_in_java_code", sequenceName = "planes_sequence_in_database", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "planes_sequence_in_java_code")
