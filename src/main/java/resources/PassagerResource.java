@@ -1,6 +1,6 @@
 package resources;
 
-import beans.Reservation;
+import beans.Passager;
 import jakarta.inject.Inject;
 import jakarta.persistence.PersistenceException;
 import jakarta.transaction.Transactional;
@@ -9,55 +9,54 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.apache.commons.lang3.StringUtils;
-import repositories.ReservationRepository;
+import repositories.PassagerRepository;
 
 import java.util.List;
 
-@Path("/reservations")
+@Path("/passengers")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class ReservationResource extends GenericResource {
+public class PassagerResource extends GenericResource {
 
     @Inject
-    private ReservationRepository repository;
+    private PassagerRepository repository;
 
     @Inject
     Validator validator;
 
-    // Method to retrieve all reservations or reservations based on operator
+    // Method to retrieve all passengers or passengers based on flightId
     @GET
-    public Response getReservations(@QueryParam("flightId") Integer flightId) {
-        List<Reservation> list;
-        if (flightId == null) {
+    public Response getPassengers(@QueryParam("Surname") String surnameParameter) {
+        List<Passager> list;
+        if (StringUtils.isBlank(surnameParameter)) {
             list = repository.listAll();
         } else {
-            list = repository.findByFlightId(flightId);
+            list = repository.findBySurname(surnameParameter);
         }
         return getOr404(list);
     }
 
-    // Method to retrieve a reservation by its id
+    // Method to retrieve a passenger by its id
     @GET
     @Path("/{id}")
-    public Response getReservation(@PathParam("id") Long id) {
-        var reservation = repository.findByIdOptional(id).orElse(null);
-        return getOr404(reservation);
+    public Response getPassenger(@PathParam("id") Long id) {
+        var passager = repository.findByIdOptional(id).orElse(null);
+        return getOr404(passager);
     }
 
-    // Method to create a reservation
+    // Method to create a passenger
     @POST
     @Transactional
-    public Response createReservation(Reservation reservation) {
-        var violations = validator.validate(reservation);
+    public Response createPassenger(Passager passager) {
+        var violations = validator.validate(passager);
         if (violations.isEmpty()) {
             return Response.status(400).entity(new ErrorWrapper(violations)).build();
         }
         try {
-            repository.persistAndFlush(reservation);
+            repository.persistAndFlush(passager);
             return Response.status(201).build();
         } catch (PersistenceException e) {
             return Response.serverError().entity(new ErrorWrapper(e.getMessage())).build();
         }
     }
 }
-
