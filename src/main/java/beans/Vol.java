@@ -19,7 +19,7 @@ import java.time.LocalTime;
 public class Vol extends PanacheEntityBase {
     @Id
     @SequenceGenerator(name = "flights_sequence_in_java_code", sequenceName = "flights_sequence_in_database", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vols_sequence_in_java_code")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "flights_sequence_in_java_code")
     private Long id; //L'id du vol !
 
     @NotBlank(message = "Le numéro du vol ne peut pas être nul !")
