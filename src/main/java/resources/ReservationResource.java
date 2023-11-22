@@ -8,7 +8,6 @@ import jakarta.validation.Validator;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.apache.commons.lang3.StringUtils;
 import repositories.ReservationRepository;
 
 import java.util.List;
@@ -24,7 +23,6 @@ public class ReservationResource extends GenericResource {
     @Inject
     Validator validator;
 
-    // Method to retrieve all reservations or reservations based on operator
     @GET
     public Response getReservations(@QueryParam("flightId") Integer flightId) {
         List<Reservation> list;
@@ -60,4 +58,3 @@ public class ReservationResource extends GenericResource {
         }
     }
 }
-
