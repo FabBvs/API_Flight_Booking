@@ -9,11 +9,14 @@ import java.util.List;
 public class AvionRepository implements PanacheRepositoryBase<Avion, Long> {
 
     public List<Avion> findByOperator(String operatorParameter) {
-        return find("operator", operatorParameter).list(); //Rechercher tous les avions !
+        return find("operator", operatorParameter).list(); //Rechercher les avions par leurs compagnies !
     }
 
-    public void machin() {
-        findById(1L); //Rechercher un avion !
-        persist(new Avion()); //Créer un avion !
+    public Avion findById(Long idParameter) {
+        return findById(idParameter); //Rechercher un avion par son id !
+    }
+
+    public void createPlane() {
+        persist(new Avion()); //Créer un avion
     }
 }
