@@ -13,7 +13,7 @@ public class PassagerRepository implements PanacheRepositoryBase<Passager, Long>
     }
 
     public void createPassenger(Passager passager) {
-        persist(passager); // Créer un nouveau passager !
+        persist(new Passager()); // Créer un nouveau passager !
     }
 
     public Passager findByIdentifier(Long id) {
