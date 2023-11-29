@@ -35,7 +35,6 @@ public class AvionResource extends GenericResource {
         return getOr404(list);
     }
 
-
     //Méthode pour récupérer un avion par son id !
     @GET
     @Path("/{id}")
@@ -49,7 +48,7 @@ public class AvionResource extends GenericResource {
     @Transactional
     public Response createPlane(Avion plane) {
         var violations = validator.validate(plane);
-        if(violations.isEmpty()){ //Si l'avion n'est pas valide !
+        if(!violations.isEmpty()){ //Si l'avion n'est pas valide !
             return Response.status(400).entity(new ErrorWrapper(violations)).build(); //Erreur au niveau du client !
         }
         try {

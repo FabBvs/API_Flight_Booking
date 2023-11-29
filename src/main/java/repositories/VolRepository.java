@@ -19,6 +19,6 @@ public class VolRepository implements PanacheRepositoryBase<Vol, Long> {
     }
 
     public void createFlight() {
-        persist((Iterable<Vol>) new Avion()); //Créer un avion !
+        persist((Iterable<Vol>) new Avion()); //Créer un vol !
     }
 }

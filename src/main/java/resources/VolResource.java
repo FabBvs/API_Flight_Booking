@@ -49,7 +49,7 @@ public class VolResource extends GenericResource {
     @Transactional
     public Response createFlight(Vol vol) {
         var violations = validator.validate(vol);
-        if(violations.isEmpty()){ //Si l'avion n'est pas valide !
+        if(!violations.isEmpty()){ //Si l'avion n'est pas valide !
             return Response.status(400).entity(new ErrorWrapper(violations)).build(); //Erreur au niveau du client !
         }
         try {

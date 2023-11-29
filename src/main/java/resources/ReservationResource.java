@@ -47,7 +47,7 @@ public class ReservationResource extends GenericResource {
     @Transactional
     public Response createReservation(Reservation reservation) {
         var violations = validator.validate(reservation);
-        if (violations.isEmpty()) {
+        if (!violations.isEmpty()) {
             return Response.status(400).entity(new ErrorWrapper(violations)).build();
         }
         try {

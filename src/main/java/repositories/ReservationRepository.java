@@ -13,7 +13,7 @@ public class ReservationRepository implements PanacheRepositoryBase<Reservation,
     }
 
     public void createReservation(Reservation reservation) {
-        persist(reservation); // Créer une nouvelle réservation !
+        persist(new Reservation()); // Créer une nouvelle réservation !
     }
 
     public Reservation findByIdentifier(Long id) {

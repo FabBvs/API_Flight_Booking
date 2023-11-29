@@ -49,7 +49,7 @@ public class PassagerResource extends GenericResource {
     @Transactional
     public Response createPassenger(Passager passager) {
         var violations = validator.validate(passager);
-        if (violations.isEmpty()) {
+        if (!violations.isEmpty()) {
             return Response.status(400).entity(new ErrorWrapper(violations)).build();
         }
         try {
