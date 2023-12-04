@@ -24,7 +24,7 @@ public class PassagerResource extends GenericResource {
     @Inject
     Validator validator;
 
-    // Method to retrieve all passengers or passengers based on flightId
+    // Méthode pour récupérer tous les passagers ou tous les passagers en fonction de leur nom de famille !
     @GET
     public Response getPassengers(@QueryParam("Surname") String surnameParameter) {
         List<Passager> list;
@@ -36,7 +36,7 @@ public class PassagerResource extends GenericResource {
         return getOr404(list);
     }
 
-    // Method to retrieve a passenger by its id
+    // Méthode pour afficher un passager par son id !
     @GET
     @Path("/{id}")
     public Response getPassenger(@PathParam("id") Long id) {
@@ -44,7 +44,7 @@ public class PassagerResource extends GenericResource {
         return getOr404(passager);
     }
 
-    // Method to create a passenger
+    // Méthode pour créer un passager !
     @POST
     @Transactional
     public Response createPassenger(Passager passager) {
@@ -55,6 +55,53 @@ public class PassagerResource extends GenericResource {
         try {
             repository.persistAndFlush(passager);
             return Response.status(201).build();
+        } catch (PersistenceException e) {
+            return Response.serverError().entity(new ErrorWrapper(e.getMessage())).build();
+        }
+    }
+
+    // Méthode pour modifier un passager par son id !
+    @PUT
+    @Path("/{id}")
+    @Transactional
+    public Response updatePassenger(@PathParam("id") Long id, Passager updatedPassager) {
+        var existingPassager = repository.findByIdOptional(id).orElse(null);
+
+        if (existingPassager == null) {
+            return Response.status(404).entity(new ErrorWrapper("Le passager n'existe pas !")).build();
+        }
+
+        var violations = validator.validate(updatedPassager);
+        if (!violations.isEmpty()) {
+            return Response.status(400).entity(new ErrorWrapper(violations)).build();
+        }
+
+        existingPassager.setSurname(updatedPassager.getSurname());
+        existingPassager.setFirstname(updatedPassager.getFirstname());
+        existingPassager.setEmail_address(updatedPassager.getEmail_address());
+
+        try {
+            repository.persistAndFlush(existingPassager);
+            return Response.status(200).entity(existingPassager).build();
+        } catch (PersistenceException e) {
+            return Response.serverError().entity(new ErrorWrapper(e.getMessage())).build();
+        }
+    }
+
+    // Méthode pour supprimer un passager par son id !
+    @DELETE
+    @Path("/{id}")
+    @Transactional
+    public Response deletePassenger(@PathParam("id") Long id) {
+        var passager = repository.findByIdOptional(id).orElse(null);
+
+        if (passager == null) {
+            return Response.status(404).entity(new ErrorWrapper("Le passager n'existe pas !")).build();
+        }
+
+        try {
+            repository.delete(passager);
+            return Response.status(204).build();
         } catch (PersistenceException e) {
             return Response.serverError().entity(new ErrorWrapper(e.getMessage())).build();
         }

@@ -34,19 +34,19 @@ public class Vol extends PanacheEntityBase {
     @Column(nullable = false)
     private String destination; //La destination du vol !
 
-    @NotBlank(message = "La date de départ du vol ne peut pas être nulle !")
+    @NotNull(message = "La date de départ du vol ne peut pas être nulle !")
     @Column(nullable = false)
     private LocalDate departure_date; //La date de départ du vol !
 
-    @NotBlank(message = "L'heure de départ du vol ne peut pas être nulle !")
+    @NotNull(message = "L'heure de départ du vol ne peut pas être nulle !")
     @Column(nullable = false)
     private LocalTime departure_time; //L'heure de départ du vol !
 
-    @NotBlank(message = "La date d'arrivée du vol ne peut pas être nulle !")
+    @NotNull(message = "La date d'arrivée du vol ne peut pas être nulle !")
     @Column(nullable = false)
     private LocalDate arrival_date; //La date d'arrivée du vol !
 
-    @NotBlank(message = "L'heure d'arrivée du vol ne peut pas être nulle !")
+    @NotNull(message = "L'heure d'arrivée du vol ne peut pas être nulle !")
     @Column(nullable = false)
     private LocalTime arrival_time; //L'heure d'arrivée du vol !
 

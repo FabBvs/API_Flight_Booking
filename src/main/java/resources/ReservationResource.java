@@ -23,6 +23,7 @@ public class ReservationResource extends GenericResource {
     @Inject
     Validator validator;
 
+    // Méthode pour afficher toutes les réservations !
     @GET
     public Response getReservations(@QueryParam("flightId") Integer flightId) {
         List<Reservation> list;
@@ -34,7 +35,7 @@ public class ReservationResource extends GenericResource {
         return getOr404(list);
     }
 
-    // Method to retrieve a reservation by its id
+    // Méthode pour retrouver une réservation par son id !
     @GET
     @Path("/{id}")
     public Response getReservation(@PathParam("id") Long id) {
@@ -42,7 +43,7 @@ public class ReservationResource extends GenericResource {
         return getOr404(reservation);
     }
 
-    // Method to create a reservation
+    // Méthode pour créer une réservation !
     @POST
     @Transactional
     public Response createReservation(Reservation reservation) {
@@ -53,6 +54,52 @@ public class ReservationResource extends GenericResource {
         try {
             repository.persistAndFlush(reservation);
             return Response.status(201).build();
+        } catch (PersistenceException e) {
+            return Response.serverError().entity(new ErrorWrapper(e.getMessage())).build();
+        }
+    }
+
+    // Méthode pour modifier une réservation par son id !
+    @PUT
+    @Path("/{id}")
+    @Transactional
+    public Response updateReservation(@PathParam("id") Long id, Reservation updatedReservation) {
+        var existingReservation = repository.findByIdOptional(id).orElse(null);
+
+        if (existingReservation == null) {
+            return Response.status(404).entity(new ErrorWrapper("La réservation n'existe pas !")).build();
+        }
+
+        var violations = validator.validate(updatedReservation);
+        if (!violations.isEmpty()) {
+            return Response.status(400).entity(new ErrorWrapper(violations)).build();
+        }
+
+        existingReservation.setFlight_id(updatedReservation.getFlight_id());
+        existingReservation.setPassenger_id(updatedReservation.getPassenger_id());
+
+        try {
+            repository.persistAndFlush(existingReservation);
+            return Response.status(200).entity(existingReservation).build();
+        } catch (PersistenceException e) {
+            return Response.serverError().entity(new ErrorWrapper(e.getMessage())).build();
+        }
+    }
+
+    // Méthode pour supprimer une réservation par son id !
+    @DELETE
+    @Path("/{id}")
+    @Transactional
+    public Response deleteReservation(@PathParam("id") Long id) {
+        var reservation = repository.findByIdOptional(id).orElse(null);
+
+        if (reservation == null) {
+            return Response.status(404).entity(new ErrorWrapper("La réservation n'existe pas !")).build();
+        }
+
+        try {
+            repository.delete(reservation);
+            return Response.status(204).build();
         } catch (PersistenceException e) {
             return Response.serverError().entity(new ErrorWrapper(e.getMessage())).build();
         }
