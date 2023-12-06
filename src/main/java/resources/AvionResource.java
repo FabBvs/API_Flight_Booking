@@ -106,6 +106,4 @@ public class AvionResource extends GenericResource {
             return Response.serverError().entity(new ErrorWrapper(e.getMessage())).build();
         }
     }
-
-
 }
