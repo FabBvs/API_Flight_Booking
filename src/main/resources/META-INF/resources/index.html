@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Airline Management System</title>
+    <title>Coco Airline</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -18,9 +18,9 @@
 
         .content-wrapper {
             max-width: 800px;
-            margin: 50px auto;
-            background-color: rgba(255, 255, 255, 0.7); /* Ajout d'une couleur d'arrière-plan semi-transparente pour améliorer la lisibilité du contenu */
-            padding: 20px;
+            margin: 5px auto;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 1px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
             text-align: center;
@@ -31,7 +31,7 @@
         }
 
         nav {
-            margin-top: 20px;
+            margin-top: 10px;
         }
 
         ul {
@@ -59,28 +59,38 @@
         img {
             max-width: 100%;
             height: auto;
-            margin-top: 20px;
+            margin-top: 10px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            max-width: 100%;
+            height: auto;
+            width: 100px;
+            cursor: pointer;
         }
     </style>
 </head>
 
 <body>
 <div class="content-wrapper">
-    <h1>Coco AirLine : Welcome !</h1>
+    <a href="index.html">
+        <img src="pictures/logo.png" alt="Coco Airline Logo" class="logo">
+    </a>
+    <h1>Coco AirLine</h1>
     <nav>
         <ul>
-            <li><a href="/planes">Planes</a></li>
-            <li><a href="/flights">Flights</a></li>
-            <li><a href="/reservations">Reservations</a></li>
-            <li><a href="/passengers">Passengers</a></li>
-            <li><a href="/q/swagger-ui">Swagger</a></li>
-            <li><a href="/h2">H2</a></li>
+            <li><a href="/avions.html">Avions</a></li>
+            <li><a href="/vols.html">Vols</a></li>
+            <li><a href="/reservations.html">Reservations</a></li>
+            <li><a href="/passagers.html">Passagers</a></li>
+            <li><a href="/q/swagger-ui">Swagger UI</a></li>
+            <li><a href="/h2">H2 Console</a></li>
         </ul>
     </nav>
     <img src="pictures/airport.jpg" alt="Airport Image">
-    <h3>By BEAUVISAGE Fabien & MUGISHA Kamali Derrick !</h3>
+    <h3>Par BEAUVISAGE Fabien & MUGISHA Kamali Derrick !</h3>
 </div>
 </body>
 
